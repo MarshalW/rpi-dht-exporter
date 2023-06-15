@@ -1,0 +1,8 @@
+[Unit]
+Description=dht Exporter
+
+[Service]
+ExecStart=/usr/local/bin/node /opt/dht-exporter/src/server.js
+
+[Install]
+WantedBy=multi-user.target
