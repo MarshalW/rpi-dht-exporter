@@ -7,8 +7,8 @@
 树莓派未安装 docker 的情况下直接部署。
 
 ```bash
-git clone xxx
-cd xxx
+git clone https://github.com/MarshalW/rpi-dht-exporter.git
+cd rpi-dht-exporter
 npm i
 ./install.sh
 ```
