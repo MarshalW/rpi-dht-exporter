@@ -2,13 +2,29 @@ const sensor = require("node-dht-sensor");
 
 const Koa = require('koa');
 const app = new Koa();
-const port = 8663
+const Router = require('koa-router');
 
-const sensorType = 11;
-const pin = 17;
+const fs = require('fs')
+const gpioPath = '/dev/gpiomem'
 
-app.use(async ctx => {
+const prefix = process.env.PREFIX || 'metrics'
+const port = process.env.PORT || 8663
+
+const sensorType = process.env.SENSOR_TYPE || 11;
+const pin = process.env.PIN || 17;
+
+const router = new Router({
+    prefix: `/${prefix}`
+});
+
+app.use(router.routes());
+
+router.get('/', async (ctx, next) => {
     try {
+        if (!fs.existsSync(gpioPath)) {
+            ctx.body = '--'
+            return
+        }
         const { temperature, humidity } = await sensor.read(sensorType, pin);
         const message = `dhtexp_temperature ${temperature.toFixed(2)}
 dhtexp_humidity ${humidity.toFixed(2)}
@@ -18,8 +34,9 @@ dhtexp_humidity ${humidity.toFixed(2)}
     } catch (err) {
         console.error("Failed to read sensor data:", err);
     }
+    next();
 });
 
 app.listen(port);
 
-console.log(`node-dht-exporter run at: ${port}`);
+console.log(`node-dht-exporter run at: ${port}/${prefix} `);

@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  dht-exporter:
+    image: marshalw/rpi-dht-exporter:latest
+    container_name: dht-exporter
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - 8663:8663
+    environment:
+      - SENSOR_TYPE=11 # 类型，dht11=11, dht22=22
+      - PIN=17 # GPIO 17
+      # - PREFIX=metrics # 默认 metrics

@@ -2,6 +2,8 @@
 
 set -e
 
+npm i
+
 sudo cp -r . /opt/dht-exporter
 sudo cp dht.service /etc/systemd/system/dht.service
 
