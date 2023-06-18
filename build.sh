@@ -2,6 +2,7 @@
 
 set -e
 
+docker buildx use mybuilder
 
 docker buildx build --push \
 --platform linux/arm64 \

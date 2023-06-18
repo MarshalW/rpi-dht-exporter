@@ -3,3 +3,6 @@
 dht.service
 install.sh
 build.sh
+node_modules
+.vscode
+Dockerfile
