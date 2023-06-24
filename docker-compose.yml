@@ -3,7 +3,7 @@ version: "3.9"
 services:
   dht-exporter:
     image: marshalw/rpi-dht-exporter:latest
-    container_name: dht-exporter
+    container_name: dht-exporterpan
     restart: unless-stopped
     privileged: true
     ports:
